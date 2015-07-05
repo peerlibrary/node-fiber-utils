@@ -1,7 +1,7 @@
 Fiber = Npm.require 'fibers'
 Future = Npm.require 'fibers/future'
 
-class OrderedFence
+class FiberUtils.OrderedFence
   constructor: ({@allowRecursive}) ->
     @allowRecursive ?= true
 

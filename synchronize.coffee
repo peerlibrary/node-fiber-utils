@@ -1,7 +1,7 @@
-_.synchronize = (guardObject, uniqueId, body, options={}) ->
+FiberUtils.synchronize = (guardObject, uniqueId, body, options={}) ->
   # Use the guard object to determine whether we have reentered.
   guards = guardObject._guards ?= {}
-  guards[uniqueId] ?= new OrderedFence options
+  guards[uniqueId] ?= new FiberUtils.OrderedFence options
   topLevel = guards[uniqueId].enter()
 
   try

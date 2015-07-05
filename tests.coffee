@@ -24,7 +24,7 @@ class FiberUtilsTestCase extends ClassyTestCase
       do (index) ->
         fibers.push Fiber ->
           # Synchronize execution of the fiber body.
-          _.synchronize context, 'fiberBody', ->
+          FiberUtils.synchronize context, 'fiberBody', ->
             fiberBody index
           doneFibers++
 
@@ -33,12 +33,12 @@ class FiberUtilsTestCase extends ClassyTestCase
       fiber.run() for fiber in fibers
 
     # Check the state.
-    @assertEqual state, [1,1,2,4,3,11,4,26,5,57,6,120,7,247,8,502,9,1013,10,2036]
+    @assertEqual state, [1, 1, 2, 4, 3, 11, 4, 26, 5, 57, 6, 120, 7, 247, 8, 502, 9, 1013, 10, 2036]
 
   testClientSynchronizeStub: ->
     # Test that the synchronize stub is defined on the client and that it works.
     bodyCalled = false
-    _.synchronize @, 'test', =>
+    FiberUtils.synchronize @, 'test', =>
       bodyCalled = true
 
     @assertTrue bodyCalled, "Synchronize stub does not work on the client."

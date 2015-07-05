@@ -19,7 +19,11 @@ Package.onUse(function (api) {
     'peerlibrary:assert@0.2.5'
   ]);
 
-  api.export('OrderedFence', 'server');
+  api.export('FiberUtils');
+
+  api.addFiles([
+    'base.coffee'
+  ]);
 
   api.addFiles([
     'fence.coffee',
@@ -35,7 +39,7 @@ Package.onTest(function (api) {
   // Core dependencies.
   api.use([
     'underscore',
-    'coffeescript',
+    'coffeescript'
   ]);
 
   // 3rd party dependencies.
