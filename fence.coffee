@@ -3,7 +3,7 @@ Future = Npm.require 'fibers/future'
 
 class FiberUtils.OrderedFence
   constructor: ({@allowRecursive}) ->
-    @allowRecursive ?= true
+    @allowRecursive ?= false
 
     # A chain of futures to enforce order.
     @_futures = []
