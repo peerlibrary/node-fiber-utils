@@ -2,8 +2,9 @@ Fiber = Npm.require 'fibers'
 Future = Npm.require 'fibers/future'
 
 class FiberUtils.OrderedFence
-  constructor: ({@allowRecursive}) ->
-    @allowRecursive ?= false
+  constructor: ({@allowRecursive, @allowNested}) ->
+    @allowRecursive ?= true
+    @allowNested ?= false
 
     # A chain of futures to enforce order.
     @_futures = []
@@ -18,6 +19,11 @@ class FiberUtils.OrderedFence
 
       return false
 
+    if Fiber.current._guardsActive > 0 and not @allowNested
+      # By default we disallow nested guards in order to prevent the possibility of deadlock
+      # from occuring. We could change this later if we implement deadlock detection.
+      throw new Error "Nesting of guarded sections is not allowed."
+
     future = null
     future = @_futures[@_futures.length - 1] unless _.isEmpty @_futures
     # Establish a new future so others may depend on us.
@@ -30,6 +36,8 @@ class FiberUtils.OrderedFence
     assert not @_currentFiber
     # Store current fiber.
     @_currentFiber = Fiber.current
+    @_currentFiber._guardsActive ?= 0
+    @_currentFiber._guardsActive++
 
     true
 
@@ -37,6 +45,8 @@ class FiberUtils.OrderedFence
     return unless topLevel
 
     # Reset current fiber.
+    assert @_currentFiber._guardsActive > 0
+    @_currentFiber._guardsActive--
     @_currentFiber = null
     # The first future is resolved.
     @_futures.shift()?.return()
