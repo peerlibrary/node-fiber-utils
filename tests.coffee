@@ -35,6 +35,44 @@ class FiberUtilsTestCase extends ClassyTestCase
     # Check the state.
     @assertEqual state, [1, 1, 2, 4, 3, 11, 4, 26, 5, 57, 6, 120, 7, 247, 8, 502, 9, 1013, 10, 2036]
 
+  testServerDeadlock: ->
+    Fiber = Npm.require 'fibers'
+
+    # Create two fibers which will grab the guard in reverse order. This would cause
+    # a deadlock unless we properly detect it.
+    context = {}
+    firstSectionReached = false
+    secondSectionReached = false
+    fiberA = Fiber ->
+      FiberUtils.synchronize context, 'guardA', ->
+        # Now we yield so that the other fiber may grab this guard.
+        Fiber.yield()
+        # Then try to grab the other guard.
+        FiberUtils.synchronize context, 'guardB', ->
+          # If everything works correctly, this should throw an exception. If not, this
+          # will cause a deadlock.
+          firstSectionReached = true
+
+    fiberB = Fiber ->
+      FiberUtils.synchronize context, 'guardB', ->
+        # Now also grab the first guard. This will cause a future to be waited upon and
+        # therefore this fiber will yield.
+        FiberUtils.synchronize context, 'guardA', ->
+          # This code will be reached when the first fiber is aborted due to a deadlock.
+          secondSectionReached = true
+
+    # Run the first fiber so it acquires guardA and yields.
+    fiberA.run()
+    # Run the second fiber so it acquires guardB and waits on guardA, yielding.
+    fiberB.run()
+    # Run the first fiber so it tries to acquire guardB. This should throw and cause the
+    # second fiber to be unblocked and let it successfully acquire guardA and finish.
+    @assertThrows ->
+      fiberA.run()
+
+    @assertFalse firstSectionReached
+    @assertTrue secondSectionReached
+
   testServerRecursiveGuards: ->
     context = {}
     section1 = (levels) ->
@@ -61,8 +99,10 @@ class FiberUtilsTestCase extends ClassyTestCase
     context = {}
     @assertThrows ->
       FiberUtils.synchronize context, 'guard1', ->
-        FiberUtils.synchronize context, 'guard2', ->
+        FiberUtils.synchronize context, 'guard2', (->
           # Entering this section should throw.
+        ),
+          allowNested: false
 
     FiberUtils.synchronize context, 'guard3', ->
       FiberUtils.synchronize context, 'guard4', (->
