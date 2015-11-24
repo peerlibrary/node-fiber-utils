@@ -27,7 +27,8 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'fence.coffee',
-    'synchronize.coffee'
+    'synchronize.coffee',
+    'ensure.coffee'
   ], 'server');
 
   api.addFiles([
