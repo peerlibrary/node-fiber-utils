@@ -21,8 +21,7 @@ class FiberUtils.OrderedFence
       return false
 
     if Fiber.current._guardsActive > 0 and not @allowNested
-      # By default we disallow nested guards in order to prevent the possibility of deadlock
-      # from occuring. We could change this later if we implement deadlock detection.
+      # By default we disallow nested guards in order to prevent the possibility of deadlock from occuring.
       throw new Error "Nesting of guarded sections is not allowed."
 
     # Track dependencies.
