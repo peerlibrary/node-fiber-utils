@@ -8,3 +8,4 @@ FiberUtils.synchronize = (guardObject, uniqueId, body, options={}) ->
     return body()
   finally
     guards[uniqueId].exit topLevel
+    delete guards[uniqueId] if uniqueId of guards and not guards[uniqueId].isInUse()

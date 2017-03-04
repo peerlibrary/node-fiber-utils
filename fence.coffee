@@ -82,3 +82,6 @@ class FiberUtils.OrderedFence
     @_currentFiber = null
     # The first future is resolved.
     @_futures.shift()?.return()
+
+  isInUse: ->
+    @_futures.length > 0
