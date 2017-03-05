@@ -3,7 +3,6 @@ class FiberUtilsTestCase extends ClassyTestCase
 
   testServerSynchronize: ->
     Fiber = Npm.require 'fibers'
-    Future = Npm.require 'fibers/future'
 
     state = []
     fiberBody = (number) =>

@@ -1,0 +1,30 @@
+{
+  "name": "fiber-utils",
+  "version": "0.7.0",
+  "description": "Various fiber utilities",
+  "main": "src/server.coffee",
+  "browser": "src/client.coffee",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peerlibrary/node-fiber-utils.git"
+  },
+  "keywords": [
+    "fiber",
+    "fibers",
+    "future",
+    "utils",
+    "synchronize"
+  ],
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/peerlibrary/node-fiber-utils/issues"
+  },
+  "homepage": "https://github.com/peerlibrary/node-fiber-utils",
+  "scripts": {
+    "build": "coffee --map --compile --output ./lib/ ./src/base.coffee ./src/fence.coffee ./src/client.coffee ./src/server.coffee",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.12.4"
+  }
+}

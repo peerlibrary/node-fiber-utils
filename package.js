@@ -1,42 +1,29 @@
 Package.describe({
   name: 'peerlibrary:fiber-utils',
   summary: "Various fiber utilities",
-  version: '0.6.0',
+  version: '0.7.0',
   git: 'https://github.com/peerlibrary/meteor-fiber-utils.git'
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.0.3.1');
+  api.versionsFrom('1.4.2');
 
   // Core dependencies.
   api.use([
     'coffeescript',
-    'underscore'
-  ]);
-
-  // 3rd party dependencies.
-  api.use([
-    'peerlibrary:assert@0.2.5'
+    'underscore',
+    'modules'
   ]);
 
   api.export('FiberUtils');
 
-  api.addFiles([
-    'src/base.coffee'
-  ]);
-
-  api.addFiles([
-    'src/fence.coffee',
-    'src/synchronize.coffee',
-    'src/ensure.coffee'
-  ], 'server');
-
-  api.addFiles([
-    'synchronize-stub.coffee'
-  ], 'src/client');
+  api.mainModule('src/meteor-client.coffee', 'client');
+  api.mainModule('src/meteor-server.coffee', 'server');
 });
 
 Package.onTest(function (api) {
+  api.versionsFrom('1.4.2');
+
   // Core dependencies.
   api.use([
     'underscore',
@@ -45,7 +32,7 @@ Package.onTest(function (api) {
 
   // 3rd party dependencies.
   api.use([
-    'peerlibrary:classy-test@0.2.16'
+    'peerlibrary:classy-test@0.2.26'
   ]);
 
   // Internal dependencies.
@@ -54,6 +41,6 @@ Package.onTest(function (api) {
   ]);
 
   api.addFiles([
-    'utils/tests.coffee'
+    'tests/tests.coffee'
   ]);
 });
