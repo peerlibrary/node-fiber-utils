@@ -1,6 +1,6 @@
 {
   "name": "fiber-utils",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Various fiber utilities",
   "main": "src/server.coffee",
   "browser": "src/client.coffee",
