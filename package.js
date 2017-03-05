@@ -22,18 +22,18 @@ Package.onUse(function (api) {
   api.export('FiberUtils');
 
   api.addFiles([
-    'base.coffee'
+    'src/base.coffee'
   ]);
 
   api.addFiles([
-    'fence.coffee',
-    'synchronize.coffee',
-    'ensure.coffee'
+    'src/fence.coffee',
+    'src/synchronize.coffee',
+    'src/ensure.coffee'
   ], 'server');
 
   api.addFiles([
     'synchronize-stub.coffee'
-  ], 'client');
+  ], 'src/client');
 });
 
 Package.onTest(function (api) {
@@ -54,6 +54,6 @@ Package.onTest(function (api) {
   ]);
 
   api.addFiles([
-    'tests.coffee'
+    'utils/tests.coffee'
   ]);
 });
