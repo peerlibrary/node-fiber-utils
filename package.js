@@ -1,7 +1,7 @@
 Package.describe({
   name: 'peerlibrary:fiber-utils',
   summary: "Various fiber utilities",
-  version: '0.7.2',
+  version: '0.7.3',
   git: 'https://github.com/peerlibrary/meteor-fiber-utils.git'
 });
 
