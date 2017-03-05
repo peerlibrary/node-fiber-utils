@@ -19,7 +19,7 @@ FiberUtils::in = (f, scope=null) ->
     if @Fiber.current
       f.apply(scope, args)
     else
-      new Fiber(->
+      new @Fiber(->
         f.apply(scope, args)
       ).run()
 
