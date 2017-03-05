@@ -1,9 +1,9 @@
 {
   "name": "fiber-utils",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Various fiber utilities",
-  "main": "src/server.coffee",
-  "browser": "src/client.coffee",
+  "main": "lib/server.js",
+  "browser": "lib/client.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/peerlibrary/node-fiber-utils.git"
@@ -26,5 +26,11 @@
   },
   "devDependencies": {
     "coffee-script": "^1.12.4"
-  }
+  },
+  "peerDependencies": {
+    "fibers": "^1.0.15"
+  },
+  "files": [
+    "lib/"
+  ]
 }
