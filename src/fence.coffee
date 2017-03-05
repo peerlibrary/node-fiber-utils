@@ -1,3 +1,4 @@
+_ = require 'underscore'
 assert = require 'assert'
 
 class OrderedFence

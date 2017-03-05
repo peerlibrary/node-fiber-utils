@@ -24,6 +24,9 @@
     "build": "coffee --map --compile --output ./lib/ ./src/base.coffee ./src/fence.coffee ./src/client.coffee ./src/server.coffee",
     "prepublish": "npm run build"
   },
+  "dependencies": {
+    "underscore": "^1.8.3"
+  },
   "devDependencies": {
     "coffee-script": "^1.12.4"
   },
