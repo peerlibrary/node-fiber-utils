@@ -25,7 +25,7 @@ FiberUtils::in = (f, scope=null, handleErrors=null) ->
         ).run()
     catch error
       if handleErrors
-        handleErrors error
+        handleErrors.call scope, error
       else
         throw error
 
