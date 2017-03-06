@@ -16,18 +16,24 @@ FiberUtils::wrap = (f, scope=null) ->
 
 FiberUtils::in = (f, scope=null, handleErrors=null) ->
   (args...) =>
-    try
-      if @Fiber.current
+    if @Fiber.current
+      try
         f.apply(scope, args)
-      else
-        new @Fiber(->
+      catch error
+        if handleErrors
+          handleErrors.call scope, error
+        else
+          throw error
+    else
+      new @Fiber(->
+        try
           f.apply(scope, args)
-        ).run()
-    catch error
-      if handleErrors
-        handleErrors.call scope, error
-      else
-        throw error
+        catch error
+          if handleErrors
+            handleErrors.call scope, error
+          else
+            throw error
+      ).run()
 
     # Function cannot return a value when not already running
     # inside a Fiber, so let us not return a value at all.
