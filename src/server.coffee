@@ -14,21 +14,27 @@ FiberUtils::wrap = (f, scope=null) ->
   (args...) =>
     @Future.wrap(f).apply(scope, args).wait()
 
-FiberUtils::in = (f, scope=null) ->
+FiberUtils::in = (f, scope=null, handleErrors=null) ->
   (args...) =>
-    if @Fiber.current
-      f.apply(scope, args)
-    else
-      new @Fiber(->
+    try
+      if @Fiber.current
         f.apply(scope, args)
-      ).run()
+      else
+        new @Fiber(->
+          f.apply(scope, args)
+        ).run()
+    catch error
+      if handleErrors
+        handleErrors error
+      else
+        throw error
 
     # Function cannot return a value when not already running
     # inside a Fiber, so let us not return a value at all.
     return
 
-FiberUtils::ensure = (f, scope=null) ->
-  @in(f, scope)()
+FiberUtils::ensure = (f, scope=null, handleErrors=null) ->
+  @in(f, scope, handleErrors)()
 
   # Function cannot return a value when not already running
   # inside a Fiber, so let us not return a value at all.

@@ -51,16 +51,19 @@ Returns a fiber-enabled synchronous function, which when called will pass any ar
 original function `f`, and then wait for the function to finish inside a current fiber.
 You can optionally bind `this` to `scope` during execution of `f`.
 
-### `FiberUtils.in(f, scope)` ###
+### `FiberUtils.in(f, scope, handleErrors)` ###
 
 Wrap function `f` in a way to assure that it is run inside a fiber. If the wrapped function is
 called already inside a fiber, it is simply normally executed. But if it is outside of any fiber,
 then a new fiber is constructed and function `f` is executed inside it.
 You can optionally bind `this` to `scope` during execution of `f`.
 
-### `FiberUtils.ensure(f, scope)` ###
+If you provide `handleErrors`, any exception thrown from a execution of `f` is passed to `handleErrors`.
+If `handleErrors` is not provided, exception propagates on unhandled.
 
-Similar to `FiberUtils.in(f, scope)`, but it also calls wrapped function immediately.
+### `FiberUtils.ensure(f, scope, handleErrors)` ###
+
+Similar to `FiberUtils.in(f, scope, handleErrors)`, but it also calls wrapped function immediately.
 
 ### `FiberUtils.synchronize(guardObject, uniqueId, f, options)` ###
 
