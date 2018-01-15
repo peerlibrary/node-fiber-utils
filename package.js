@@ -1,7 +1,7 @@
 Package.describe({
   name: 'peerlibrary:fiber-utils',
   summary: "Various fiber utilities",
-  version: '0.9.0',
+  version: '0.9.1',
   git: 'https://github.com/peerlibrary/node-fiber-utils.git'
 });
 

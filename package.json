@@ -1,6 +1,6 @@
 {
   "name": "fiber-utils",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Various fiber utilities",
   "main": "lib/server.js",
   "browser": "lib/client.js",
@@ -21,13 +21,15 @@
   },
   "homepage": "https://github.com/peerlibrary/node-fiber-utils",
   "scripts": {
-    "build": "coffee --map --compile --output ./lib/ ./src/base.coffee ./src/fence.coffee ./src/client.coffee ./src/server.coffee",
+    "build": "coffee --inline-map --transpile --compile --output ./lib/ ./src/base.coffee ./src/fence.coffee ./src/client.coffee ./src/server.coffee",
     "prepare": "npm run build"
   },
   "dependencies": {
     "underscore": "^1.4.2"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "coffeescript": "^2.0.3"
   },
   "peerDependencies": {
