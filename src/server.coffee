@@ -1,5 +1,5 @@
-{FiberUtils} = require './base'
-{OrderedFence} = require './fence'
+import {FiberUtils} from './base'
+import {OrderedFence} from './fence'
 
 FiberUtils::sleep = (ms) ->
   future = new @Future()
@@ -58,6 +58,4 @@ FiberUtils::synchronize = (guardObject, uniqueId, f, options={}) ->
     guards[uniqueId].exit topLevel
     delete guards[uniqueId] if uniqueId of guards and not guards[uniqueId].isInUse()
 
-module.exports = {
-  FiberUtils
-}
+export {FiberUtils}

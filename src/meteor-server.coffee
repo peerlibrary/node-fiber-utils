@@ -1,8 +1,8 @@
 {FiberUtils} = require './server'
 
-Fiber = Npm.require 'fibers'
-Future = Npm.require 'fibers/future'
+import Fiber from 'fibers'
+import Future from 'fibers/future'
 
-module.exports = {
-  FiberUtils: new FiberUtils Fiber, Future
-}
+fiberUtils = new FiberUtils Fiber, Future
+
+export {fiberUtils as FiberUtils}

@@ -1,18 +1,18 @@
 Package.describe({
   name: 'peerlibrary:fiber-utils',
   summary: "Various fiber utilities",
-  version: '0.8.2',
-  git: 'https://github.com/peerlibrary/meteor-fiber-utils.git'
+  version: '0.9.0',
+  git: 'https://github.com/peerlibrary/node-fiber-utils.git'
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom('1.4.2');
+  api.versionsFrom('METEOR@1.4.4.5');
 
   // Core dependencies.
   api.use([
-    'coffeescript',
-    'underscore',
-    'modules'
+    'coffeescript@2.0.3_3',
+    'ecmascript',
+    'underscore'
   ]);
 
   api.export('FiberUtils');
@@ -22,17 +22,18 @@ Package.onUse(function (api) {
 });
 
 Package.onTest(function (api) {
-  api.versionsFrom('1.4.2');
+  api.versionsFrom('METEOR@1.4.4.5');
 
   // Core dependencies.
   api.use([
-    'underscore',
-    'coffeescript'
+    'coffeescript@2.0.3_3',
+    'ecmascript',
+    'underscore'
   ]);
 
   // 3rd party dependencies.
   api.use([
-    'peerlibrary:classy-test@0.2.26'
+    'peerlibrary:classy-test@0.3.0'
   ]);
 
   // Internal dependencies.

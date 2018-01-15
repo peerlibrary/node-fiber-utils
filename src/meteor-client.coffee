@@ -1,5 +1,5 @@
 {FiberUtils} = require './client'
 
-module.exports = {
-  FiberUtils: new FiberUtils null, null
-}
+fiberUtils = new FiberUtils(null, null)
+
+export {fiberUtils as FiberUtils}
