@@ -1,6 +1,6 @@
 {
   "name": "fiber-utils",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "Various fiber utilities",
   "main": "lib/server.js",
   "browser": "lib/client.js",
@@ -30,10 +30,10 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "coffeescript": "^2.0.3"
+    "coffeescript": "^2.4.1"
   },
   "peerDependencies": {
-    "fibers": "^2.0.0"
+    "fibers": "^3.1.1"
   },
   "files": [
     "lib/"
